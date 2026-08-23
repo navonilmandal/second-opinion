@@ -1,0 +1,33 @@
+name: Build and Release Extension
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        
+    - name: Install and Build
+      run: |
+        cd apps/extension
+        npm install
+        npm run build
+        
+    - name: Package Extension
+      run: |
+        cd apps/extension/dist
+        zip -r ../../policy-review-extension.zip .
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: policy-review-extension.zip
+        generate_release_notes: true

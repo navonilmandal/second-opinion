@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Second Opinion - Sidebar</title>
+    <style>
+      :root {
+        --bg-dark: #f8fafc;
+        --bg-card: #ffffff;
+        --text-main: #0f172a;
+        --text-secondary: #475569;
+        --primary: #8b5cf6;
+        --primary-hover: #7c3aed;
+        --secondary: #3b82f6;
+        --border: #e2e8f0;
+      }
+      body { font-family: 'Inter', sans-serif; padding: 12px; background: var(--bg-dark); color: var(--text-main); line-height: 1.6; margin: 0; }
+      
+      /* Branding header */
+      .sidebar-header { display: flex; align-items: center; margin-bottom: 20px; gap: 8px; cursor: pointer; }
+      .logo-icon {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white; width: 28px; height: 28px; border-radius: 6px;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1rem;
+        box-shadow: 0 0 12px 3px rgba(139, 92, 246, 0.7);
+      }
+      .logo-text { font-weight: 700; font-size: 1.1rem; color: var(--text-main); letter-spacing: -0.025em; }
+      
+      .card { background: var(--bg-card); border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+      h2 { margin-top: 0; color: var(--text-main); font-size: 1.25rem; margin-bottom: 12px; }
+      h3 { margin-top: 0; color: var(--text-main); font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 12px; }
+      h4 { margin-top: 16px; margin-bottom: 4px; font-size: 0.95rem; color: var(--text-main); }
+      p { margin-top: 0; margin-bottom: 12px; font-size: 0.9rem; color: var(--text-secondary); }
+      .hidden { display: none !important; }
+      
+      .spinner { border: 3px solid rgba(139, 92, 246, 0.1); width: 28px; height: 28px; border-radius: 50%; border-left-color: var(--primary); animation: spin 1s linear infinite; margin: 16px auto; }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      .loading-text { text-align: center; color: var(--text-secondary); font-size: 13px; animation: pulse 1.5s infinite; }
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+      .score-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0 16px 0; }
+      .circular-chart { display: block; margin: 0 auto; max-width: 100px; max-height: 100px; }
+      .circle-bg { fill: none; stroke: var(--border); stroke-width: 3.8; }
+      .circle { fill: none; stroke-width: 3.8; stroke-linecap: round; transition: stroke-dasharray 1s ease-out, stroke 0.5s ease-out; }
+      .percentage { fill: var(--text-main); font-family: 'Inter', sans-serif; font-size: 0.5em; text-anchor: middle; font-weight: bold; }
+      
+      .verdict-badge { margin-top: 12px; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background: #f1f5f9; color: var(--text-secondary); }
+      
+      .supported-link { color: var(--primary); font-weight: 600; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; display: block; text-align: center; margin-top: 16px; cursor: pointer; }
+      .supported-link:hover { color: var(--primary-hover); text-decoration: underline; }
+
+      /* Providers View */
+      .provider-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: rgba(139, 92, 246, 0.03); font-weight: 600; color: var(--primary); display: flex; align-items: center; margin-bottom: 8px; font-size: 0.85rem; }
+      .btn-back { background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; margin-bottom: 12px; }
+      .btn-back:hover { background: #f1f5f9; }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar-header" id="btn-home">
+      <div class="logo-icon">2</div>
+      <span class="logo-text">Second Opinion</span>
+    </div>
+
+    <!-- Main View -->
+    <div id="main-view">
+        <div class="card">
+            <h2>Policy Score</h2>
+            <div id="score-container">
+                <div class="score-wrapper">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="score-circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <text x="18" y="20.35" class="percentage" id="score-text">--</text>
+                    </svg>
+                    <div id="verdict-text" class="verdict-badge">WAITING</div>
+                </div>
+            </div>
+            <div id="loading-container" class="hidden">
+                <div class="spinner"></div>
+                <p class="loading-text">Analyzing full document...</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Clause Analysis</h3>
+            
+            <div id="analysis-placeholder">
+                <p style="text-align: center; margin-top: 10px;">Click "Analyze Policy" on the page to run the extraction and RAG pipeline.</p>
+                <div class="supported-link" id="btn-show-providers">See supported providers &rarr;</div>
+            </div>
+
+            <div id="local-pdf-upload" class="hidden" style="text-align: center; margin-top: 10px; padding: 12px; border: 1px dashed #94a3b8; border-radius: 8px; background: rgba(241, 245, 249, 0.8);">
+                <p style="color: #f59e0b; font-weight: bold; margin-bottom: 8px; font-size: 0.9rem;">⚠️ Local File Blocked</p>
+                <p style="font-size: 0.8rem; margin-bottom: 12px;">Chrome prevents extensions from reading local files.</p>
+                <label for="pdf-upload-input" style="background: var(--primary); color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: bold; display: inline-block;">
+                    Select PDF to Analyze
+                </label>
+                <input type="file" id="pdf-upload-input" accept="application/pdf" style="display: none;">
+            </div>
+            
+            <div id="analysis-content" class="hidden">
+                <h4 style="color: var(--secondary);">Summary</h4>
+                <div id="summary-text"></div>
+                
+                <h4 style="color: var(--risk-low);">What's Good</h4>
+                <div id="good-text"></div>
+                
+                <h4 style="color: var(--risk-high);">What's Bad / Risks</h4>
+                <div id="bad-text"></div>
+                
+                <h4 style="color: var(--risk-medium);">Base Score Factors & Traps</h4>
+                <div id="factors-text"></div>
+                
+                <h4 style="color: var(--primary);">Recommendation</h4>
+                <div id="recommendation-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Providers View -->
+    <div id="providers-view" class="hidden">
+      <button class="btn-back" id="btn-back-providers">&larr; Back</button>
+      <div class="card">
+        <h3>Supported Providers</h3>
+        <p>Our AI is trained on policies from:</p>
+        <div id="providers-list">
+          <!-- Populated by TS -->
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./sidebar.ts"></script>
+  </body>
+</html>

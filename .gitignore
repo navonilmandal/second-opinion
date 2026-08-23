@@ -1,0 +1,61 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+alembic.ini
+
+# Node
+node_modules/
+dist/
+build/
+.next/
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Test Files & Sensitive Documents
+*.pdf
+*.docx
+*.doc
+*.csv
+*.txt
+care_test*
+hdfc_optima*
+test_data/
+test_policies/
+
+# Secrets
+*.pem
+*.key
+
+# Data & Storage
+uploads/
+data/qdrant/
+data/redis/
+data/postgres/
+
+#py files
+test_apis.py
