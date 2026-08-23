@@ -1,4 +1,4 @@
-# Second Opinion (formerly Policy Review AI)
+# Second Opinion
 
 **Created by: Navonil, Puru, Shubham from BIT Mesra**
 
