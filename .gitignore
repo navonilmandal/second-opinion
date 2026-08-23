@@ -40,7 +40,6 @@ htmlcov/
 *.pdf
 *.docx
 *.doc
-*.csv
 *.txt
 care_test*
 hdfc_optima*
