@@ -22,26 +22,72 @@ Second Opinion is built with a unified architecture where both the Web Dashboard
 
 ### The Pipeline Architecture
 
-```text
-USER INPUT (Web Upload or Extension Scraping)
-    ↓
-FASTAPI BACKEND
-    ↓
-PII REDACTION (Microsoft Presidio)
-    ↓
-DOCUMENT CHUNKING & EMBEDDING (FastEmbed/Gemini)
-    ↓
-QDRANT VECTOR DATABASE (Local RAG)
-    ↓
-AI STRUCTURED EXTRACTION (OpenRouter/Gemini LLM)
-    ↓
-PANDAS DETERMINISTIC SCORING ENGINE (real_seed_corpus.csv)
-    ↓
-INDIVIDUAL SCORES (Trust, Transparency, Overall)
-    ↓
-AI-GENERATED EXPLANATION USING EVIDENCE
-    ↓
-FRONTEND DASHBOARD / EXTENSION SIDEBAR (React/Vanilla JS)
+```mermaid
+flowchart TD
+    %% Input Sources
+    subgraph Frontend [User Interfaces]
+        Web(Web Dashboard<br>Upload PDF / DOCX)
+        Ext(Chrome Extension<br>Scrape Policy Webpage)
+    end
+
+    %% Ingestion
+    subgraph Ingestion [Ingestion Layer]
+        Parser(Document Parser<br>PyMuPDF / pdf.js)
+        DOM(DOM Extractor<br>Clean Text)
+    end
+
+    Web -->|File Upload| Parser
+    Ext -->|Raw HTML / Text| DOM
+
+    %% Backend Processing
+    subgraph Backend [FastAPI Backend Engine]
+        API[API Endpoints]
+        Parser --> API
+        DOM --> API
+
+        PII[PII Redaction<br>Microsoft Presidio]
+        API -->|Sanitize Data| PII
+
+        Chunk[Semantic Chunking<br>500-1000 tokens]
+        PII --> Chunk
+
+        Embed[Embedding Model<br>FastEmbed / Gemini]
+        Chunk --> Embed
+
+        VectorDB[(Qdrant Vector DB<br>Local RAG Storage)]
+        Embed --> VectorDB
+    end
+
+    %% AI & Scoring
+    subgraph Analysis [Analysis & Scoring Pipeline]
+        Orchestrator{RAG Orchestrator<br>Cosine Similarity Search}
+        VectorDB <-->|Retrieve Relevant Clauses| Orchestrator
+        
+        LLM[Structured LLM Extraction<br>OpenRouter / Gemini]
+        Orchestrator -->|Inject Context| LLM
+        
+        Pandas[[Pandas Deterministic Engine]]
+        CSV[(real_seed_corpus.csv<br>IRDAI Benchmarks)]
+        
+        LLM -->|Extracted Risks & Traps| Pandas
+        CSV -->|Historical Provider Data| Pandas
+        
+        Verdict[Final Verdict Generation<br>Trust & Transparency Scores]
+        Pandas --> Verdict
+    end
+
+    %% Output
+    Verdict -->|JSON Response| UI[UI Rendering<br>Dashboard & Sidebar]
+    
+    classDef ui fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef backend fill:#059669,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef db fill:#ea580c,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef ai fill:#7c3aed,stroke:#fff,stroke-width:2px,color:#fff;
+
+    class Web,Ext,UI ui;
+    class API,PII,Chunk,Embed,Parser,DOM,Pandas,Verdict backend;
+    class VectorDB,CSV db;
+    class Orchestrator,LLM ai;
 ```
 
 ### Step-by-Step Execution Flow in Detail
