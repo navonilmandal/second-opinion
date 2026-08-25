@@ -22,8 +22,10 @@ export const DocumentDropzone: React.FC<DocumentDropzoneProps> = ({ onUploadSucc
     const formData = new FormData();
     formData.append("file", file);
 
+    const API_URL = import.meta.env.VITE_API_URL || "https://second-opinion-gy3d.onrender.com/api/v1";
+
     try {
-      const uploadRes = await fetch("http://localhost:8000/api/v1/documents/upload", {
+      const uploadRes = await fetch(`${API_URL}/documents/upload`, {
         method: "POST",
         body: formData,
       });
@@ -31,7 +33,7 @@ export const DocumentDropzone: React.FC<DocumentDropzoneProps> = ({ onUploadSucc
       if (!uploadRes.ok) throw new Error("Upload failed.");
       const uploadData = await uploadRes.json();
       
-      const analysisRes = await fetch("http://localhost:8000/api/v1/analysis/analyze", {
+      const analysisRes = await fetch(`${API_URL}/analysis/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

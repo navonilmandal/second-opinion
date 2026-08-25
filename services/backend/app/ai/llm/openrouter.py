@@ -16,7 +16,7 @@ class OpenRouterLLMProvider(LLMProvider):
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "http://localhost:8000", 
+            "HTTP-Referer": "https://second-opinion-black.vercel.app", 
             "X-Title": "PolicyReviewAI"
         }
         
