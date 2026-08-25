@@ -18,10 +18,10 @@ class RAGOrchestrator:
         
         # Initialize RAG components
         from app.ai.rag.qdrant_client import QdrantService
-        from app.ai.embeddings.gemini import GeminiEmbeddingProvider
+        from app.ai.embeddings.fastembed_provider import FastEmbedProvider
         
         self.qdrant = QdrantService()
-        self.embedder = GeminiEmbeddingProvider()
+        self.embedder = FastEmbedProvider()
         
     async def analyze(self, document_id: str, query: str) -> ClauseAnalysisResult:
         """

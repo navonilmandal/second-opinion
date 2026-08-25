@@ -28,11 +28,10 @@ class QdrantService:
             collection_names = [col.name for col in collections.collections]
             
             if self.collection_name not in collection_names:
-                # gemini-embedding-2 outputs 3072 dimensions
                 self.client.create_collection(
                     collection_name=self.collection_name,
                     vectors_config=rest.VectorParams(
-                        size=3072, 
+                        size=384, 
                         distance=rest.Distance.COSINE
                     ),
                 )
