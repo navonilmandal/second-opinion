@@ -1,4 +1,4 @@
-name: "Build & Release Extension"
+name: Build and Release Extension
 
 on:
   push:
