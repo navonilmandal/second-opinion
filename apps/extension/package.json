@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && copy manifest.json dist\\manifest.json && copy node_modules\\pdfjs-dist\\build\\pdf.worker.min.mjs dist\\pdf.worker.min.mjs"
+    "build": "vite build && cp manifest.json dist/manifest.json && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs dist/pdf.worker.min.mjs"
   },
   "dependencies": {
     "pdfjs-dist": "^6.2.108",
