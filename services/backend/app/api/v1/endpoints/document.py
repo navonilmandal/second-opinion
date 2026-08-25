@@ -36,10 +36,10 @@ async def upload_document(file: UploadFile = File(...)):
         chunks = result["chunks"]
         
         # Initialize dependencies
-        from app.ai.embeddings.gemini import GeminiEmbeddingProvider
+        from app.ai.embeddings.fastembed_provider import FastEmbedProvider
         from app.ai.rag.qdrant_client import QdrantService
         
-        embedder = GeminiEmbeddingProvider()
+        embedder = FastEmbedProvider()
         qdrant = QdrantService()
         
         # Extract texts for embedding
