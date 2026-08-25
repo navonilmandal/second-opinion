@@ -37,7 +37,7 @@ const App: React.FC = () => {
         <>
           <header className="hero-section fade-in">
             <h1 className="hero-title interactive-hero">
-              Want To Get a{' '}
+              Get a{' '}
               <span className="typewriter-second">
                 <span className="gradient-text">Second&nbsp;</span>
               </span>
