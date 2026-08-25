@@ -36,10 +36,10 @@ async def upload_document(file: UploadFile = File(...)):
         chunks = result["chunks"]
         
         # Initialize dependencies
-        from app.ai.embeddings.fastembed_provider import FastEmbedProvider
+        from app.ai.embeddings.cohere_embedder import CohereEmbeddingProvider
         from app.ai.rag.qdrant_client import QdrantService
         
-        embedder = FastEmbedProvider()
+        embedder = CohereEmbeddingProvider()
         qdrant = QdrantService()
         
         # Extract texts for embedding

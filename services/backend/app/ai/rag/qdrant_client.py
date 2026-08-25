@@ -31,7 +31,7 @@ class QdrantService:
                 self.client.create_collection(
                     collection_name=self.collection_name,
                     vectors_config=rest.VectorParams(
-                        size=384, 
+                        size=1024, 
                         distance=rest.Distance.COSINE
                     ),
                 )
