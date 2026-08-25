@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     
     EMBEDDING_PROVIDER: str = "mock"
     EMBEDDING_API_KEY: Optional[str] = None
-    EMBEDDING_MODEL: str = "embedding-001"
+    EMBEDDING_MODEL: str = "text-embedding-004"
     
     # Storage
     STORAGE_PROVIDER: str = "local"
