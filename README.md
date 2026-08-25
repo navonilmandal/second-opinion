@@ -144,24 +144,23 @@ The final numerical score is mapped to a deterministic verdict (e.g., 80-100 is 
 - **Frontend Web App**: React, TypeScript, Vite, Tailwind CSS (Custom Premium Light Mode Aesthetics).
 - **Chrome Extension**: Manifest V3, Vanilla TypeScript, DOM parsing, local PDF.js extraction, sidePanel API.
 - **Backend**: FastAPI (Python), Pydantic for strict schema validation.
-- **AI & RAG**: Qdrant (Vector DB), FastEmbed, LangChain, OpenRouter/Gemini.
+- **AI & RAG**: Qdrant (Vector DB), Cohere API (Embeddings), LangChain, OpenRouter (Nemotron/Gemini).
 - **Data Engine**: Pandas for deterministic scoring and benchmark comparisons.
-- **Privacy**: Microsoft Presidio for NLP-based entity redaction.
+- **Privacy & Performance**: Microsoft Presidio for NLP-based entity redaction, PyMuPDF for ultra-fast C++ document extraction.
 
 ---
 
 ## 📥 How to Download the Extension
 
-You do not need to build the extension manually if you just want to use it! We have bundled the latest compiled extension directly into the web application.
+You do not need to build the extension manually if you just want to use it! We host the latest compiled extension directly on GitHub.
 
-1. Start the web application (see instructions below).
-2. Open the web app in your browser (usually `http://localhost:5173`).
-3. Click the **"Download Extension"** button located in the top-right corner of the header.
-4. Extract the downloaded `second-opinion-extension.zip` file to a folder on your computer.
-5. Open Google Chrome and navigate to `chrome://extensions/`.
-6. Enable **Developer mode** using the toggle in the top right corner.
-7. Click **Load unpacked** and select the folder where you extracted the extension.
-8. Click on the extensions puzzle piece icon in Chrome, pin **Second Opinion**, and open the sidebar! The extension is now ready to use on any insurance website.
+1. Go to the live web app and click the **"Download Extension"** button in the top-right corner, OR navigate directly to our [GitHub Releases Page](https://github.com/navonilmandal/second-opinion/releases/latest).
+2. Download the `second-opinion-extension.zip` file from the latest release.
+3. Extract the downloaded zip file to a folder on your computer.
+4. Open Google Chrome and navigate to `chrome://extensions/`.
+5. Enable **Developer mode** using the toggle in the top right corner.
+6. Click **Load unpacked** and select the folder where you extracted the extension.
+7. Click on the extensions puzzle piece icon in Chrome, pin **Second Opinion**, and open the sidebar! The extension is now ready to use on any supported insurance website.
 
 ---
 
@@ -174,7 +173,7 @@ Copy the `.env.example` file to `.env` in the root directory:
 ```bash
 cp .env.example .env
 ```
-Fill in your API keys (e.g., `GEMINI_API_KEY` or `OPENROUTER_API_KEY`). The system will fall back to a mock LLM if keys are omitted, allowing you to test the UI without costs.
+Fill in your API keys (e.g., `COHERE_API_KEY` for embeddings, and `OPENROUTER_API_KEY` or `GEMINI_API_KEY` for analysis). The system uses Cohere by default for safe memory management, and falls back to a mock LLM if analysis keys are omitted, allowing you to test the UI without costs.
 
 ### 2. Start the Database (Qdrant)
 We use Docker to run the Qdrant vector database locally:
