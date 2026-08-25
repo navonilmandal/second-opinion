@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: policy-review-backend
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: services/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: VECTOR_DB_URL
+        sync: false
+      - key: VECTOR_DB_API_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: LLM_API_KEY
+        sync: false
+      - key: EMBEDDING_PROVIDER
+        value: gemini
+      - key: EMBEDDING_API_KEY
+        sync: false
+      - key: JWT_SECRET_KEY
+        sync: false
