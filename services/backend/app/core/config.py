@@ -25,11 +25,11 @@ class Settings(BaseSettings):
     # Providers
     LLM_PROVIDER: str = "mock"
     LLM_API_KEY: Optional[str] = None
-    LLM_MODEL: str = "gemini-2.0-flash"
+    LLM_MODEL: str = "google/gemini-1.5-flash"
     
     EMBEDDING_PROVIDER: str = "mock"
     EMBEDDING_API_KEY: Optional[str] = None
-    EMBEDDING_MODEL: str = "text-embedding-004"
+    EMBEDDING_MODEL: str = "embedding-001"
     
     # Storage
     STORAGE_PROVIDER: str = "local"
