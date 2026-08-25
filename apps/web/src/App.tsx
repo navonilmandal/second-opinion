@@ -17,8 +17,9 @@ const App: React.FC = () => {
           <span className="logo-text">Second Opinion</span>
         </div>
         <a
-          href="/second-opinion-extension.zip"
-          download
+          href="https://github.com/navonilmandal/second-opinion/releases/latest"
+          target="_blank"
+          rel="noopener noreferrer"
           className="btn-outline"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
