@@ -3,7 +3,8 @@
 **Created by: Navonil, Puru, Shubham from BIT Mesra**
 
 🔗 **Live Web App:** [https://second-opinion-black.vercel.app](https://second-opinion-black.vercel.app)
-**Second Opinion is a production-grade, end-to-end AI-powered Insurance Policy and Terms & Conditions Review Platform. It acts as a serious AI-powered policy intelligence and comparison assistant that helps users understand what they are signing up for before committing to an insurance plan. 
+
+Second Opinion is a production-grade, end-to-end AI-powered Insurance Policy and Terms & Conditions Review Platform. It acts as a serious AI-powered policy intelligence and comparison assistant that helps users understand what they are signing up for before committing to an insurance plan. 
 
 Whether you upload a dense 100-page policy PDF or navigate directly to a provider's marketing website, Second Opinion reads the available information, extracts critical clauses, and produces a realistic, explainable numerical assessment grounded in real data and industry benchmarks. 
 
