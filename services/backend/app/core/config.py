@@ -27,9 +27,9 @@ class Settings(BaseSettings):
     LLM_API_KEY: Optional[str] = None
     LLM_MODEL: str = "google/gemini-1.5-flash"
     
-    EMBEDDING_PROVIDER: str = "fastembed"
+    EMBEDDING_PROVIDER: str = "cohere"
     EMBEDDING_API_KEY: Optional[str] = None
-    EMBEDDING_MODEL: str = "BAAI/bge-small-en-v1.5"
+    EMBEDDING_MODEL: str = "embed-english-v3.0"
     
     # Storage
     STORAGE_PROVIDER: str = "local"
