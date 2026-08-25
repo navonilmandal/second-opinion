@@ -14,7 +14,7 @@ function runBackendPipeline(payload: string, hostname: string, sendResponse: any
     // Broadcast UI update
     chrome.runtime.sendMessage({ type: "ANALYSIS_STATUS", message: "Uploading text to AI backend..." });
 
-    fetch("http://localhost:8000/api/v1/documents/upload", {
+    fetch("https://second-opinion-gy3d.onrender.com/api/v1/documents/upload", {
         method: "POST",
         body: formData
     })
@@ -37,7 +37,7 @@ function runBackendPipeline(payload: string, hostname: string, sendResponse: any
         chrome.runtime.sendMessage({ type: "ANALYSIS_STATUS", message: "Generating AI Embeddings & Analyzing Legal Clauses..." });
         
         // 2. Call the analyze endpoint with the document_id
-        return fetch("http://localhost:8000/api/v1/analysis/analyze", {
+        return fetch("https://second-opinion-gy3d.onrender.com/api/v1/analysis/analyze", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
