@@ -81,11 +81,15 @@ class OpenRouterLLMProvider(LLMProvider):
             content = data["choices"][0]["message"]["content"]
             
             try:
-                # Some models might still wrap in markdown despite instructions
-                if content.startswith("```json"):
-                    content = content.strip("`").replace("json\n", "", 1)
+                import re
+                # Find the first { and the last } to extract JSON even if wrapped in thinking process
+                match = re.search(r'\{.*\}', content, re.DOTALL)
+                if not match:
+                    raise json.JSONDecodeError("No JSON object found", content, 0)
                 
-                result = json.loads(content)
+                json_str = match.group(0)
+                result = json.loads(json_str)
+                
                 result["chunk_id"] = "live-chunk"
                 result["confidence"] = "high"
                 result["evidence"] = [] # To be hydrated by orchestrator
